@@ -45,6 +45,13 @@ miro.onReady(() => {
     function getTags() {
         return miro.board.tags.get();
     }
+	
+	function randomColor() {
+		const red = Math.floor((Math.random() * 256) / 2);
+		const green = Math.floor((Math.random() * 256) / 2);
+		const blue = Math.floor((Math.random() * 256) / 2);
+		return '#' + red.toString(16) + green.toString(16) + blue.toString(16);
+	}
 
     async function loadTags() {
         widgets = await getStickies();
