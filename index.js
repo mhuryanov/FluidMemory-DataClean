@@ -36,6 +36,8 @@ miro.onReady(() => {
 	<path id="svg_41" d="m19.07619,2.35066l1.35814,0l0.41968,-1.29023l0.41968,1.29023l1.35814,0l-1.09876,0.7974l0.4197,1.29023l-1.09876,-0.79742l-1.09876,0.79742l0.4197,-1.29023l-1.09876,-0.7974z" stroke="null" fill="rgb(96.862745%,58.039216%,11.372549%)"/><path d="m20.26829,9.96435c-0.27039,-0.00397 -0.49307,0.20678 -0.50103,0.46921c0,0.00398 0,0.00795 0,0.01193c0,0.26244 0.22268,0.47716 0.49308,0.47716c0.27437,0.00398 0.49705,-0.21075 0.49705,-0.47716c0.00398,-0.26642 -0.2187,-0.48114 -0.4891,-0.48114zm0,0" fill-rule="nonzero" fill="rgb(96.862745%,58.039216%,11.372549%)" id="svg_34" stroke="null"/>
    </g>`;
 
+    var appId = '3074457366242160150';
+
     function getStickies() {
         return miro.board.widgets.get({
             type: 'STICKER',
@@ -44,6 +46,10 @@ miro.onReady(() => {
 
     function getTags() {
         return miro.board.tags.get();
+    }
+
+    function randomId() {
+        return Date.now().toString() + Math.floor(Math.random() * 10000);
     }
 	
 	function randomColor() {
@@ -102,9 +108,13 @@ miro.onReady(() => {
 
             widget.text = text;
             widget.tags = tags;
+            widget.metadata = {
+                [appId]: {
+                    secretId: randomId()
+                }
+            }
             delete widget.createdUserId;
             delete widget.lastModifiedUserId;
-            delete widget.metadata;
 
             miro.board.widgets.update(widget);
         }
